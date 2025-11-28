@@ -11,7 +11,7 @@
 [![Vite](https://img.shields.io/badge/Vite-7.2-646cff?logo=vite&logoColor=white)](https://vite.dev/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-[Live Demo](https://stringthing.procrastinator.se) • [Report Bug](https://github.com/Shadester/tunerpage/issues) • [Request Feature](https://github.com/Shadester/tunerpage/issues)
+[Live Demo](https://stringthing.procrastinator.se) • [Report Bug](https://github.com/Shadester/stringthing/issues) • [Request Feature](https://github.com/Shadester/stringthing/issues)
 
 </div>
 
@@ -106,8 +106,8 @@ Calculate the perfect amount of string slack for optimal winding tension.
 
 ```bash
 # Clone the repository
-git clone https://github.com/Shadester/tunerpage.git
-cd tunerpage
+git clone https://github.com/Shadester/stringthing.git
+cd stringthing
 
 # Install dependencies
 npm install

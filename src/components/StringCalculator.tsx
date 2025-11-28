@@ -1,17 +1,11 @@
 import { useState, useMemo } from 'react'
 import './StringCalculator.css'
-import {
-  CalculatorHelpDiagram,
-  ScaleLengthDiagram,
-  NutToTunerDiagram,
-  WindingDiagram
-} from './illustrations/CalculatorDiagrams'
 
 type InstrumentType = 'guitar' | 'bass4' | 'bass5'
 
 interface TuningPegConfig {
-  pegSpacing: number
-  windingDiameter: number
+  pegSpacing: number // mm
+  windingDiameter: number // mm
 }
 
 const PEG_CONFIGS: Record<string, TuningPegConfig> = {
@@ -41,18 +35,20 @@ const SCALE_LENGTHS: Record<InstrumentType, { name: string; length: number }[]> 
   ]
 }
 
+// Convert inches to cm
+const inchesToCm = (inches: number) => Math.round(inches * 2.54 * 10) / 10
+
 interface StringResult {
   stringNumber: number
-  nutToTuner: number
-  slackNeeded: number
+  nutToTunerCm: number
+  slackNeededCm: number
   windingTurns: number
-  totalLength: number
 }
 
 export default function StringCalculator() {
   const [instrument, setInstrument] = useState<InstrumentType>('guitar')
   const [scaleLength, setScaleLength] = useState(25.5)
-  const [nutToFirstTuner, setNutToFirstTuner] = useState(4)
+  const [nutToFirstTunerCm, setNutToFirstTunerCm] = useState(10) // cm
   const [pegType, setPegType] = useState('standard')
   const [targetWraps, setTargetWraps] = useState(3)
   const [showHelp, setShowHelp] = useState(false)
@@ -62,24 +58,25 @@ export default function StringCalculator() {
 
   const results = useMemo((): StringResult[] => {
     const strings: StringResult[] = []
+    const pegSpacingCm = pegConfig.pegSpacing / 10 // mm to cm
 
     for (let i = 1; i <= stringCount; i++) {
-      const nutToTuner = nutToFirstTuner + (i - 1) * (pegConfig.pegSpacing / 25.4)
-      const windingCircumference = Math.PI * (pegConfig.windingDiameter / 25.4)
-      const slackNeeded = targetWraps * windingCircumference
-      const windingTurns = targetWraps
+      const nutToTunerCm = nutToFirstTunerCm + (i - 1) * pegSpacingCm
+      const windingCircumferenceCm = Math.PI * (pegConfig.windingDiameter / 10) // mm to cm
+      const slackNeededCm = targetWraps * windingCircumferenceCm
 
       strings.push({
         stringNumber: i,
-        nutToTuner: Math.round(nutToTuner * 10) / 10,
-        slackNeeded: Math.round(slackNeeded * 10) / 10,
-        windingTurns,
-        totalLength: Math.round((scaleLength + nutToTuner + slackNeeded) * 10) / 10
+        nutToTunerCm: Math.round(nutToTunerCm * 10) / 10,
+        slackNeededCm: Math.round(slackNeededCm * 10) / 10,
+        windingTurns: targetWraps
       })
     }
 
     return strings
-  }, [stringCount, nutToFirstTuner, pegConfig, targetWraps, scaleLength])
+  }, [stringCount, nutToFirstTunerCm, pegConfig, targetWraps])
+
+  const slackNeeded = Math.round(results[0]?.slackNeededCm || 0)
 
   return (
     <div className="string-calculator">
@@ -94,41 +91,36 @@ export default function StringCalculator() {
         <div className="help-section">
           <h3>Measurement Guide</h3>
 
-          <div className="help-diagram">
-            <CalculatorHelpDiagram />
+          <div className="help-item">
+            <h4>Scale Length</h4>
+            <p>
+              Measure from the <strong>nut</strong> (where the strings leave the headstock) to the
+              <strong> bridge saddle</strong> (where strings contact the bridge). Common lengths:
+            </p>
+            <ul>
+              <li>Fender guitars: 25.5"</li>
+              <li>Gibson guitars: 24.75"</li>
+              <li>Standard bass: 34"</li>
+            </ul>
           </div>
 
           <div className="help-item">
-            <h4>A - Scale Length</h4>
+            <h4>Nut to First Tuner</h4>
             <p>
-              The distance from the nut to the bridge saddle. This determines the vibrating length
-              of the string and affects intonation.
+              Measure from the <strong>nut edge</strong> to the <strong>center of the first tuning peg</strong> (the one closest to the nut). This is typically 8-12 cm for guitars and 10-15 cm for bass.
             </p>
-            <div className="help-diagram">
-              <ScaleLengthDiagram />
-            </div>
-          </div>
-
-          <div className="help-item">
-            <h4>B - Nut to First Tuner</h4>
-            <p>
-              Measure from the edge of the nut to the center of the first (closest) tuning peg.
-              This varies by headstock design.
-            </p>
-            <div className="help-diagram">
-              <NutToTunerDiagram />
-            </div>
           </div>
 
           <div className="help-item">
             <h4>Target Wraps</h4>
             <p>
-              The number of times the string winds around the tuning post. More wraps create
-              better break angle at the nut but too many can cause tuning instability.
+              How many times the string winds around the tuning post:
             </p>
-            <div className="help-diagram">
-              <WindingDiagram />
-            </div>
+            <ul>
+              <li><strong>2-3 wraps:</strong> Wound/thicker strings</li>
+              <li><strong>3-4 wraps:</strong> Plain/thinner strings</li>
+              <li><strong>1-2 wraps:</strong> Locking tuners</li>
+            </ul>
           </div>
         </div>
       )}
@@ -191,6 +183,7 @@ export default function StringCalculator() {
               min="20"
               max="40"
             />
+            <span className="cm-value">= {inchesToCm(scaleLength)} cm</span>
           </div>
         </div>
 
@@ -224,14 +217,14 @@ export default function StringCalculator() {
           <h3>Measurements</h3>
           <div className="measurements">
             <div className="measurement">
-              <label>Nut to 1st Tuner (inches):</label>
+              <label>Nut to 1st Tuner (cm):</label>
               <input
                 type="number"
-                value={nutToFirstTuner}
-                onChange={e => setNutToFirstTuner(parseFloat(e.target.value) || 0)}
+                value={nutToFirstTunerCm}
+                onChange={e => setNutToFirstTunerCm(parseFloat(e.target.value) || 0)}
                 step="0.5"
-                min="2"
-                max="10"
+                min="5"
+                max="25"
               />
             </div>
             <div className="measurement">
@@ -264,8 +257,8 @@ export default function StringCalculator() {
           {results.map(result => (
             <div key={result.stringNumber} className="table-row">
               <span className="string-num">{result.stringNumber}</span>
-              <span>{result.nutToTuner}"</span>
-              <span className="slack-value">{result.slackNeeded}"</span>
+              <span>{result.nutToTunerCm} cm</span>
+              <span className="slack-value">{result.slackNeededCm} cm</span>
               <span>{result.windingTurns}</span>
             </div>
           ))}
@@ -276,7 +269,7 @@ export default function StringCalculator() {
           <div className="quick-ref-content">
             <p>
               <strong>Easy method:</strong> Pull string taut to target tuner,
-              then measure back <strong>{Math.round(results[0]?.slackNeeded || 0)}-{Math.round(results[stringCount - 1]?.slackNeeded || 0)}"</strong> of
+              then measure back <strong>{slackNeeded} cm</strong> of
               slack (about {targetWraps} tuner posts) before winding.
             </p>
             {instrument === 'guitar' && pegType === 'locking' && (

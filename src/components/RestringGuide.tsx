@@ -1,15 +1,5 @@
-import { useState, type ReactNode } from 'react'
+import { useState } from 'react'
 import './RestringGuide.css'
-import {
-  StringWindingIllustration,
-  StringSlackIllustration,
-  BridgePinIllustration,
-  ThroughBodyIllustration,
-  StretchingIllustration,
-  FloydRoseBlockIllustration,
-  LockingNutIllustration,
-  BassStringCutIllustration
-} from './illustrations'
 
 type InstrumentType = 'guitar' | 'bass'
 type BridgeType = 'hardtail' | 'tremolo' | 'floyd'
@@ -18,7 +8,6 @@ interface Step {
   title: string
   description: string
   tip?: string
-  illustration?: ReactNode
 }
 
 const GUITAR_STEPS: Step[] = [
@@ -40,26 +29,22 @@ const GUITAR_STEPS: Step[] = [
   {
     title: '4. Thread the new string',
     description: 'Insert the ball end into the bridge (or through the body for string-through designs). Pull the string up to the tuning peg.',
-    tip: 'Make sure the ball end is seated properly in the bridge.',
-    illustration: <BridgePinIllustration />
+    tip: 'Make sure the ball end is seated properly in the bridge, not caught under the bridge pin.'
   },
   {
     title: '5. Measure slack for winding',
-    description: 'Pull the string taut, then add 2-3 inches of slack (about 2-3 tuning posts worth). This gives enough length for proper wraps.',
-    tip: 'Too few wraps = string slippage. Too many = tuning instability.',
-    illustration: <StringSlackIllustration />
+    description: 'Pull the string taut to the target tuning peg, then add 5-8 cm of slack (about 2-3 tuning posts worth). This gives enough length for proper wraps.',
+    tip: 'Too few wraps = string slippage. Too many = tuning instability.'
   },
   {
     title: '6. Wind the string',
-    description: 'Insert the string through the peg hole. Wind so the string wraps downward on the post, creating a break angle at the nut.',
-    tip: 'First wrap should go above the string end, subsequent wraps below. Aim for 2-4 wraps total.',
-    illustration: <StringWindingIllustration />
+    description: 'Insert the string through the peg hole. Wind so the string wraps downward on the post, toward the headstock. First wrap goes above the string end, subsequent wraps below.',
+    tip: 'Aim for 2-3 wraps on wound strings, 3-4 on plain strings. Keep tension while winding for neat coils.'
   },
   {
     title: '7. Stretch and tune',
-    description: 'Bring the string up to pitch. Gently pull the string away from the fretboard at various points, then retune. Repeat until stable.',
-    tip: 'New strings stretch! Plan to retune several times in the first few hours of playing.',
-    illustration: <StretchingIllustration />
+    description: 'Bring the string up to pitch. Gently pull the string away from the fretboard (about 2-3 cm) at various points along its length, then retune. Repeat until stable.',
+    tip: 'New strings stretch! Plan to retune several times in the first few hours of playing.'
   },
   {
     title: '8. Trim excess',
@@ -96,26 +81,22 @@ const BASS_STEPS: Step[] = [
   {
     title: '4. Thread the new string',
     description: 'For through-body: feed from the back. For top-load: insert ball end into bridge. Guide the string up to the tuner.',
-    tip: 'Bass strings are thick - make sure they seat properly in the bridge saddle.',
-    illustration: <ThroughBodyIllustration />
+    tip: 'Bass strings are thick - make sure they seat properly in the bridge saddle.'
   },
   {
     title: '5. Measure and cut',
-    description: 'Extend the string past the target tuning peg, measure 3-4 inches past, and cut. Bass strings often need to be trimmed before winding.',
-    tip: 'Bass strings are too thick to wind with excess - measure carefully before cutting!',
-    illustration: <BassStringCutIllustration />
+    description: 'Extend the string past the target tuning peg, measure 8-10 cm past, and cut. Bass strings must be trimmed before winding due to their thickness.',
+    tip: 'Measure carefully before cutting - you can\'t undo this step!'
   },
   {
     title: '6. Wind the string',
-    description: 'Insert the cut end into the tuner post hole. Wind so the string wraps downward. Aim for 2-3 clean wraps on bass tuners.',
-    tip: 'Maintain tension while winding to ensure tight, even wraps.',
-    illustration: <StringWindingIllustration />
+    description: 'Insert the cut end into the tuner post hole. Wind so the string wraps downward toward the headstock. Aim for 2-3 clean wraps.',
+    tip: 'Maintain tension while winding to ensure tight, even wraps.'
   },
   {
     title: '7. Stretch and tune',
-    description: 'Tune to pitch, then firmly (but gently) pull the string away from the fretboard. Retune and repeat until stable.',
-    tip: 'Bass strings take longer to settle - be patient with the stretching process.',
-    illustration: <StretchingIllustration />
+    description: 'Tune to pitch, then firmly (but gently) pull the string away from the fretboard at multiple points. Retune and repeat until stable.',
+    tip: 'Bass strings take longer to settle - be patient with the stretching process.'
   },
   {
     title: '8. Repeat for all strings',
@@ -137,7 +118,6 @@ interface FloydStep {
   title: string
   description: string
   tip?: string
-  illustration?: ReactNode
 }
 
 const FLOYD_ROSE_TIPS: FloydStep[] = [
@@ -147,13 +127,11 @@ const FLOYD_ROSE_TIPS: FloydStep[] = [
   },
   {
     title: 'Block the tremolo',
-    description: 'Place a block of wood or a tremolo stopper behind the bridge to keep it level while changing strings.',
-    tip: 'This prevents the bridge from diving or rising as you change string tension.',
-    illustration: <FloydRoseBlockIllustration />
+    description: 'Place a block of wood or a tremolo stopper behind the bridge to keep it level while changing strings. This prevents the bridge from diving or rising as you change string tension.',
   },
   {
     title: 'Change one string at a time',
-    description: 'Never remove all strings at once on a Floyd Rose. This destabilizes the floating bridge balance.',
+    description: 'Never remove all strings at once on a Floyd Rose. This destabilizes the floating bridge balance and can require a full setup to fix.',
   },
   {
     title: 'Clip the ball end',
@@ -162,8 +140,7 @@ const FLOYD_ROSE_TIPS: FloydStep[] = [
   },
   {
     title: 'Lock the nut last',
-    description: 'Only lock the nut clamps after all strings are tuned and stretched. Use the fine tuners for final adjustments.',
-    illustration: <LockingNutIllustration />
+    description: 'Only lock the nut clamps after all strings are tuned and stretched. Use the fine tuners for final adjustments after locking.',
   }
 ]
 
@@ -253,11 +230,6 @@ export default function RestringGuide() {
             <div key={index} className="floyd-tip">
               <h4>{tip.title}</h4>
               <p>{tip.description}</p>
-              {tip.illustration && (
-                <div className="step-illustration">
-                  {tip.illustration}
-                </div>
-              )}
               {tip.tip && <p className="tip">{tip.tip}</p>}
             </div>
           ))}
@@ -277,11 +249,6 @@ export default function RestringGuide() {
             <div className="step-content">
               <h3>{step.title}</h3>
               <p>{step.description}</p>
-              {step.illustration && (
-                <div className="step-illustration">
-                  {step.illustration}
-                </div>
-              )}
               {step.tip && <p className="tip">{step.tip}</p>}
             </div>
           </div>

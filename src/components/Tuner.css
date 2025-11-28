@@ -2,40 +2,50 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .error {
-  background: #ff4444;
+  background: linear-gradient(135deg, #ff4444, #cc2222);
   color: white;
-  padding: 1rem;
-  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
   max-width: 400px;
   text-align: center;
+  box-shadow: 0 4px 20px rgba(255, 68, 68, 0.4);
+  font-weight: 500;
 }
 
 .tuner-display {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding: 2rem;
-  background: #1a1a2e;
-  border-radius: 16px;
-  min-width: 320px;
+  gap: 1.25rem;
+  padding: 2.5rem;
+  background: var(--gradient-surface);
+  border-radius: 24px;
+  min-width: 340px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 .note-display {
-  font-size: 5rem;
-  font-weight: bold;
-  color: #666;
-  transition: color 0.2s;
+  font-size: 6rem;
+  font-weight: 800;
+  color: #444;
+  transition: all 0.3s ease;
   display: flex;
   align-items: baseline;
+  text-shadow: 0 0 30px transparent;
 }
 
 .note-display.active {
-  color: #00d4ff;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 30px var(--primary-glow));
 }
 
 .note-display .note {
@@ -43,35 +53,38 @@
 }
 
 .note-display .octave {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-left: 0.25rem;
   opacity: 0.7;
 }
 
 .frequency {
-  font-size: 1.25rem;
-  color: #888;
+  font-size: 1.35rem;
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
 .cents-meter {
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
 }
 
 .cents-scale {
   display: flex;
   justify-content: space-between;
-  font-size: 0.75rem;
-  color: #666;
-  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+  color: #555;
+  margin-bottom: 0.35rem;
+  font-weight: 600;
 }
 
 .cents-bar {
-  height: 24px;
-  background: #2a2a3e;
-  border-radius: 12px;
+  height: 28px;
+  background: rgba(30, 30, 50, 0.8);
+  border-radius: 14px;
   position: relative;
   overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .cents-center {
@@ -79,40 +92,47 @@
   left: 50%;
   top: 0;
   bottom: 0;
-  width: 2px;
-  background: #00d4ff;
+  width: 3px;
+  background: var(--gradient-primary);
   transform: translateX(-50%);
+  box-shadow: 0 0 10px var(--primary-glow);
 }
 
 .cents-indicator {
   position: absolute;
   top: 50%;
-  width: 16px;
-  height: 16px;
-  background: #666;
+  width: 20px;
+  height: 20px;
+  background: #555;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  transition: left 0.1s, background 0.2s;
+  transition: left 0.1s ease, background 0.2s, box-shadow 0.2s;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .cents-indicator.in-tune {
-  background: #00ff88;
-  box-shadow: 0 0 12px #00ff88;
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
+  border-color: var(--accent);
 }
 
 .cents-indicator.flat {
-  background: #ff6b6b;
+  background: var(--warning);
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+  border-color: var(--warning);
 }
 
 .cents-indicator.sharp {
-  background: #ffa500;
+  background: var(--orange);
+  box-shadow: 0 0 15px rgba(255, 140, 0, 0.5);
+  border-color: var(--orange);
 }
 
 .cents-value {
   text-align: center;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #888;
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
   min-height: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -120,144 +140,163 @@
 }
 
 .cents-value .status {
-  font-weight: bold;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .cents-value .status.in-tune {
-  color: #00ff88;
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
 }
 
 .cents-value .status.flat {
-  color: #ff6b6b;
+  color: var(--warning);
 }
 
 .cents-value .status.sharp {
-  color: #ffa500;
+  color: var(--orange);
 }
 
 .listen-button {
-  padding: 1rem 3rem;
-  font-size: 1.25rem;
-  background: #00d4ff;
+  padding: 1.25rem 4rem;
+  font-size: 1.35rem;
+  background: var(--gradient-primary);
   color: #000;
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  font-weight: bold;
-  transition: all 0.2s;
+  font-weight: 800;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px var(--primary-glow);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .listen-button:hover {
-  background: #00b8e0;
-  transform: scale(1.05);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 8px 35px var(--primary-glow);
 }
 
 .listen-button.listening {
-  background: #ff4444;
+  background: var(--gradient-hot);
   color: white;
-  animation: pulse 2s infinite;
+  box-shadow: 0 4px 25px var(--secondary-glow);
+  animation: pulse-glow 2s infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4); }
-  50% { box-shadow: 0 0 0 15px rgba(255, 68, 68, 0); }
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 4px 25px var(--secondary-glow); }
+  50% { box-shadow: 0 4px 40px var(--secondary-glow), 0 0 60px var(--secondary-glow); }
 }
 
 .reference-tunings {
   width: 100%;
-  max-width: 600px;
+  max-width: 650px;
 }
 
 .reference-tunings h3 {
   text-align: center;
-  margin-bottom: 0.25rem;
-  color: #888;
+  margin-bottom: 0.35rem;
+  color: var(--text-muted);
+  font-size: 1.1rem;
 }
 
 .reference-hint {
   text-align: center;
   color: #666;
-  font-size: 0.85rem;
-  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  margin: 0 0 1.25rem 0;
 }
 
 .tuning-sections {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .tuning-section {
-  background: #1a1a2e;
-  padding: 1rem;
-  border-radius: 8px;
+  background: var(--gradient-surface);
+  padding: 1.25rem;
+  border-radius: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .tuning-section h4 {
-  margin: 0 0 0.75rem 0;
-  color: #00d4ff;
-  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .string-notes {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.6rem;
   flex-wrap: wrap;
 }
 
 .string-note {
-  background: #2a2a3e;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+  background: var(--surface);
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 70px;
-  border: 2px solid transparent;
+  min-width: 75px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.25s ease;
   position: relative;
 }
 
 .string-note:hover {
-  border-color: #00d4ff;
-  background: #3a3a4e;
+  border-color: var(--primary);
+  background: var(--surface-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px var(--primary-glow);
 }
 
 .string-note.playing {
-  border-color: #00ff88;
-  background: #1a2e2a;
-  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+  border-color: var(--accent);
+  background: rgba(0, 255, 136, 0.15);
+  box-shadow: 0 0 25px var(--accent-glow);
+  transform: scale(1.05);
 }
 
 .string-number {
-  font-size: 0.65rem;
-  color: #666;
+  font-size: 0.7rem;
+  color: #555;
   position: absolute;
-  top: 4px;
-  left: 6px;
+  top: 5px;
+  left: 8px;
+  font-weight: 600;
 }
 
 .note-name {
-  font-weight: bold;
-  font-size: 1.1rem;
+  font-weight: 800;
+  font-size: 1.2rem;
 }
 
 .string-note small {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: #666;
   margin-top: 0.25rem;
 }
 
 .playing-icon {
   position: absolute;
-  top: 4px;
-  right: 6px;
-  color: #00ff88;
+  top: 5px;
+  right: 8px;
+  color: var(--accent);
   animation: bounce 0.5s infinite alternate;
+  filter: drop-shadow(0 0 5px var(--accent-glow));
 }
 
 @keyframes bounce {
   from { transform: translateY(0); }
-  to { transform: translateY(-3px); }
+  to { transform: translateY(-4px); }
 }

@@ -48,6 +48,14 @@
   filter: drop-shadow(0 0 30px var(--primary-glow));
 }
 
+.note-display.faded {
+  background: linear-gradient(135deg, #006b7a, #00664d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.6;
+}
+
 .note-display .note {
   line-height: 1;
 }
@@ -156,6 +164,12 @@
 
 .cents-value .status.sharp {
   color: var(--orange);
+}
+
+.cents-value .status.faded {
+  color: #4a9b8a;
+  text-shadow: none;
+  opacity: 0.7;
 }
 
 .listen-button {

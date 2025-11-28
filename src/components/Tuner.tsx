@@ -47,13 +47,17 @@ export default function Tuner() {
       {error && <div className="error">{error}</div>}
 
       <div className="tuner-display">
-        <div className={`note-display ${pitchData.isPlaying ? 'active' : ''}`}>
+        <div className={`note-display ${pitchData.isPlaying ? 'active' : pitchData.note !== '-' ? 'faded' : ''}`}>
           <span className="note">{pitchData.note}</span>
           <span className="octave">{pitchData.octave > 0 ? pitchData.octave : ''}</span>
         </div>
 
         <div className="frequency">
-          {pitchData.isPlaying ? `${pitchData.frequency} Hz` : 'Play a note...'}
+          {pitchData.isPlaying
+            ? `${pitchData.frequency} Hz`
+            : pitchData.note !== '-'
+              ? `${pitchData.frequency} Hz`
+              : 'Play a note...'}
         </div>
 
         <div className="cents-meter">
@@ -70,10 +74,10 @@ export default function Tuner() {
             />
           </div>
           <div className="cents-value">
-            {pitchData.isPlaying && (
+            {(pitchData.isPlaying || pitchData.note !== '-') && (
               <>
                 {pitchData.cents > 0 ? '+' : ''}{pitchData.cents} cents
-                <span className={`status ${getTuningStatus(pitchData.cents)}`}>
+                <span className={`status ${pitchData.isPlaying ? getTuningStatus(pitchData.cents) : 'faded'}`}>
                   {getTuningStatus(pitchData.cents) === 'in-tune' ? '✓ In Tune' :
                    getTuningStatus(pitchData.cents) === 'flat' ? '↓ Flat' : '↑ Sharp'}
                 </span>

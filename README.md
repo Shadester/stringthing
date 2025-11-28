@@ -11,7 +11,7 @@
 [![Vite](https://img.shields.io/badge/Vite-7.2-646cff?logo=vite&logoColor=white)](https://vite.dev/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-[Live Demo](https://tuner.procrastinator.se) • [Report Bug](https://github.com/Shadester/tunerpage/issues) • [Request Feature](https://github.com/Shadester/tunerpage/issues)
+[Live Demo](https://stringthing.procrastinator.se) • [Report Bug](https://github.com/Shadester/tunerpage/issues) • [Request Feature](https://github.com/Shadester/tunerpage/issues)
 
 </div>
 

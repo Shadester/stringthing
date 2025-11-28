@@ -47,8 +47,9 @@ StringThing is a comprehensive web-based tool designed to make guitar and bass r
 - Optimized sound profiles for guitar vs. bass
 
 **Supported Tunings:**
-- 🎸 **Guitar** — 6-string standard (E A D G B E)
-- 🎸 **Bass** — 4-string (E A D G) and 5-string (B E A D G)
+- 🎸 **Guitar** — Standard, Drop D, Half Step Down, Whole Step Down, DADGAD, Open G
+- 🎸 **Bass 4-string** — Standard, Drop D, Half Step Down
+- 🎸 **Bass 5-string** — Standard, Half Step Down
 
 </details>
 

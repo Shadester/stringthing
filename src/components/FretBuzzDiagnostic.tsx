@@ -11,7 +11,7 @@ interface DiagnosticResult {
   difficulty: 'easy' | 'medium' | 'hard'
 }
 
-const getDiagnostic = (location: BuzzLocation, severity: BuzzSeverity): DiagnosticResult => {
+const getDiagnostic = (location: BuzzLocation): DiagnosticResult => {
   if (location === 'low') {
     return {
       title: 'Buzz on Low Frets (1-5)',
@@ -123,7 +123,7 @@ export default function FretBuzzDiagnostic() {
   const [buzzSeverity, setBuzzSeverity] = useState<BuzzSeverity>('moderate')
   const [showResult, setShowResult] = useState(false)
 
-  const diagnostic = getDiagnostic(buzzLocation, buzzSeverity)
+  const diagnostic = getDiagnostic(buzzLocation)
 
   const handleDiagnose = () => {
     setShowResult(true)

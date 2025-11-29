@@ -36,12 +36,12 @@ header .subtitle {
 }
 
 .tabs button {
-  padding: 0.9rem 1.75rem;
+  padding: 0.75rem 1.25rem;
   background: var(--surface);
   border: 2px solid rgba(255, 255, 255, 0.1);
   color: var(--text-muted);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -80,7 +80,7 @@ main {
   min-height: 60vh;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .app {
     padding: 1rem;
   }
@@ -89,8 +89,12 @@ main {
     font-size: 2rem;
   }
 
+  .tabs {
+    gap: 0.5rem;
+  }
+
   .tabs button {
-    padding: 0.7rem 1.25rem;
-    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
   }
 }
